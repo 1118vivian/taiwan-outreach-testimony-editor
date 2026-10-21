@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>台島展見證稿編輯器</title>
+  <link rel="stylesheet" href="./styles.css?v=20261021-4">
+  <script defer src="./vendor/docx.umd.js"></script>
+  <script defer src="./vendor/html2canvas.min.js"></script>
+  <script defer src="./vendor/jspdf.umd.min.js"></script>
+  <script defer src="./app.js?v=20261021-4"></script>
+</head>
+<body>
+<main class="app-shell">
+  <section class="editor-pane" aria-label="台島展見證稿欄位">
+    <div class="pane-heading">
+      <div><p class="eyebrow">臺灣福音工作全時間訓練壯年成全班</p><h1>台島展見證稿編輯器</h1></div>
+      <button class="ghost-button" id="clearForm" type="button">清空</button>
+    </div>
+    <form id="testimonyForm" class="form-grid">
+      <label class="span-full"><span>分類名稱</span><input id="category" name="category" list="categories" placeholder="可選擇或自行輸入"><datalist id="categories"><option value="職事"></option><option value="真理"></option><option value="生命"></option><option value="性格"></option><option value="事奉與心志"></option></datalist></label>
+      <label><span>第幾組</span><input id="group" name="group" placeholder="例如：03-02"></label>
+      <label><span>姓名</span><input id="name" name="name" autocomplete="name" placeholder="請輸入姓名"></label>
+      <label><span>開始日期</span><input id="startDate" name="startDate" type="date"></label>
+      <label><span>結束日期</span><input id="endDate" name="endDate" type="date"></label>
+      <label class="span-full"><span>主題</span><input id="topic" name="topic" placeholder="請輸入蒙恩見證主題"></label>
+      <label class="span-full"><span>真理與啟示（30％）</span><textarea id="truth" name="truth" rows="5"></textarea></label>
+      <label class="span-full"><span>應用與經歷（50％）</span><textarea id="experience" name="experience" rows="10" placeholder="請輸入實際應用與蒙恩經歷"></textarea></label>
+      <label class="span-full"><span>結語與願望（20％）</span><textarea id="conclusion" name="conclusion" rows="4" placeholder="請輸入結語與願望"></textarea></label>
+    </form>
+    <p id="wordCount" class="help-text" aria-live="polite"></p>
+    <p class="help-text">範本建議約 300～400 字（約 2～3 分鐘）。Word 採固定圖片版面，請在此修改後重新下載。</p>
+    <p id="draftStatus" class="help-text" role="status"></p>
+    <div class="actions" aria-label="產生檔案"><button id="downloadDocx" type="button">產生 DOCX</button><button id="downloadPdf" type="button">產生 PDF</button><button id="shareDocx" type="button">分享 Word</button></div>
+  </section>
+  <section class="preview-pane" aria-label="預覽">
+    <div class="preview-toolbar"><h2>預覽</h2><span id="fileNamePreview"></span></div>
+    <div id="previewViewport" class="preview-viewport">
+      <article id="documentPreview" class="document-page"><div class="page-content">
+        <header class="doc-header"><p>臺灣福音工作全時間訓練壯年成全班</p><h2>台島展見證稿</h2></header>
+        <div class="meta-line"><span>分類名稱：<strong data-preview="category"></strong></span><span>第 <strong data-preview="group"></strong> 組</span><span>姓名 <strong data-preview="name"></strong></span><span class="date-line"><strong data-preview="startDateText"></strong> 至 <strong data-preview="endDateText"></strong></span></div>
+        <section class="doc-section"><h3>主題</h3><div class="section-body" data-preview="topic"></div></section>
+        <section class="doc-section truth-section"><h3>真理<br>與<br>啟示<br>30％</h3><div class="section-body multiline" data-preview="truth"></div></section>
+        <section class="doc-section experience-section"><h3>應用<br>與<br>經歷<br>50％</h3><div class="section-body multiline" data-preview="experience"></div></section>
+        <section class="doc-section conclusion-section"><h3>結語<br>與<br>願望<br>20％</h3><div class="section-body multiline" data-preview="conclusion"></div></section>
+        <footer class="notes"><p>注意事項：</p><ol><li>可以「一週福音開展見證、訓練課程」為範圍，選定蒙恩見證主題。</li><li>主題若以訓練生活為本，『真理與啟示』須列舉課程綱要要點及經文。</li><li>請務必填入所選項目於左上分類名稱，例：職事、真理、生命、性格、事奉與心志。</li><li>每人約300~400字（約2~3分鐘）。</li></ol></footer>
+      </div></article>
+    </div>
+    <p class="help-text">預覽、PDF 與 Word 使用相同 A4 版面；內容較多時會縮小以完整呈現。</p>
+  </section>
+</main>
+</body>
+</html>
+
+
+
+
