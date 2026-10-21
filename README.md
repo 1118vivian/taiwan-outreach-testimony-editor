@@ -22,11 +22,12 @@
 
 ## 部署與維護
 
-可將本資料夾完整放到靜態網站主機或 GitHub Pages。更新程式或樣式時，請同步更新 index.html 內的版本號。尚未發布到公開網址。
+可將本資料夾完整放到靜態網站主機或 GitHub Pages。更新程式或樣式時，請同步更新 index.html 內的版本號。公開網址：https://1118vivian.github.io/taiwan-outreach-testimony-editor/ 。推送 main 分支後會由 GitHub Actions 自動部署。
 
 ## 本機驗證
 
 已以桌面及 390px 手機寬度驗證欄位預覽、草稿還原、清空、長文縮放、文字安全顯示、DOCX 下載及 PDF 下載。PDF 已確認為單頁 A4；DOCX 已檢查內嵌圖片及 A4 設定。此環境缺少 LibreOffice，未完成 Word 排版引擎的渲染驗證；正式使用前宜在實際手機 Word 開啟確認。
+
 
 
 
