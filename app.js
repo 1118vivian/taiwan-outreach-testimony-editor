@@ -56,16 +56,19 @@
     const font = { ascii: "Microsoft JhengHei", hAnsi: "Microsoft JhengHei", eastAsia: "Microsoft JhengHei", cs: "Microsoft JhengHei" };
     const paragraph = (text, options = {}) => new d.Paragraph({
       alignment: options.alignment || d.AlignmentType.LEFT,
-      spacing: { before: 0, after: options.after ?? 0, line: options.line || 340 },
+      spacing: { before: 0, after: options.after ?? 0, line: options.line || 340, lineRule: d.LineRuleType.EXACT },
+      keepNext: false,
+      keepLines: false,
       children: text.split(/\r?\n/).map((line, index) => new d.TextRun({
         text: line, break: index ? 1 : undefined, font,
-        size: options.size || 26, bold: options.bold || false,
+        size: options.size || 26, bold: options.bold || false, snapToGrid: false,
       })),
     });
     const tableWidth = 10706;
     const labelWidth = 1150;
     const row = (label, text, height) => new d.TableRow({
       height: { value: height, rule: d.HeightRule.ATLEAST },
+      cantSplit: false,
       children: [
         new d.TableCell({
           width: { size: labelWidth, type: d.WidthType.DXA },
@@ -84,19 +87,19 @@
       title: "台島展見證稿",
       styles: { default: { document: { run: { font, size: 26, color: "000000" }, paragraph: { spacing: { after: 0 } } } } },
       sections: [{
-        properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 600, right: 600, bottom: 600, left: 600 } } },
+        properties: { verticalAlign: d.VerticalAlign.TOP, page: { size: { width: 11906, height: 16838 }, margin: { top: 600, right: 600, bottom: 600, left: 600 } } },
         children: [
-          paragraph("臺灣福音工作全時間訓練壯年成全班", { bold: true, size: 28, alignment: d.AlignmentType.CENTER, after: 80 }),
-          paragraph("台島展見證稿", { bold: true, size: 38, alignment: d.AlignmentType.CENTER, line: 450, after: 220 }),
-          paragraph(`分類名稱：${data.category}    第 ${data.group} 組    姓名 ${data.name}`, { size: 24, after: 80 }),
-          paragraph(`${dateText(data.startDate)} 至 ${dateText(data.endDate)}`, { size: 24, after: 160 }),
+          paragraph("臺灣福音工作全時間訓練壯年成全班", { bold: true, size: 28, alignment: d.AlignmentType.CENTER, line: 360, after: 40 }),
+          paragraph("台島展見證稿", { bold: true, size: 38, alignment: d.AlignmentType.CENTER, line: 460, after: 100 }),
+          paragraph(`分類名稱：${data.category}    第 ${data.group} 組    姓名 ${data.name}`, { size: 24, line: 300, after: 20 }),
+          paragraph(`${dateText(data.startDate)} 至 ${dateText(data.endDate)}`, { size: 24, line: 300, after: 80 }),
           new d.Table({
             width: { size: tableWidth, type: d.WidthType.DXA },
             columnWidths: [labelWidth, tableWidth - labelWidth],
             layout: d.TableLayoutType.FIXED,
-            margins: { top: 120, bottom: 120, left: 140, right: 140 },
+            margins: { top: 100, bottom: 100, left: 140, right: 140 },
             borders: { top: border, bottom: border, left: border, right: border, insideHorizontal: border, insideVertical: border },
-            rows: [row("主題", data.topic, 600), row("真理\n與\n啟示\n30％", data.truth, 2600), row("應用\n與\n經歷\n50％", data.experience, 4500), row("結語\n與\n願望\n20％", data.conclusion, 2350)],
+            rows: [row("主題", data.topic, 480), row("真理\n與\n啟示\n30％", data.truth, 1900), row("應用\n與\n經歷\n50％", data.experience, 3400), row("結語\n與\n願望\n20％", data.conclusion, 1600)],
           }),
           paragraph("注意事項：", { size: 20, after: 0, line: 280 }),
           ...Array.from(preview.querySelectorAll(".notes li"), (node, index) => paragraph(`${index + 1}. ${node.textContent}`, { size: 20, line: 280 })),
