@@ -8,7 +8,7 @@
   <script defer src="./vendor/docx.umd.js"></script>
   <script defer src="./vendor/html2canvas.min.js"></script>
   <script defer src="./vendor/jspdf.umd.min.js"></script>
-  <script defer src="./app.js?v=20261021-4"></script>
+  <script defer src="./app.js?v=20261022-2"></script>
 </head>
 <body>
 <main class="app-shell">
@@ -29,7 +29,7 @@
       <label class="span-full"><span>結語與願望（20％）</span><textarea id="conclusion" name="conclusion" rows="4" placeholder="請輸入結語與願望"></textarea></label>
     </form>
     <p id="wordCount" class="help-text" aria-live="polite"></p>
-    <p class="help-text">範本建議約 300～400 字（約 2～3 分鐘）。Word 採固定圖片版面，請在此修改後重新下載。</p>
+    <p class="help-text">範本建議約 300～400 字（約 2～3 分鐘）。Word 可直接編輯文字與表格。</p>
     <p id="draftStatus" class="help-text" role="status"></p>
     <div class="actions" aria-label="產生檔案"><button id="downloadDocx" type="button">產生 DOCX</button><button id="downloadPdf" type="button">產生 PDF</button><button id="shareDocx" type="button">分享 Word</button></div>
   </section>
@@ -46,7 +46,7 @@
         <footer class="notes"><p>注意事項：</p><ol><li>可以「一週福音開展見證、訓練課程」為範圍，選定蒙恩見證主題。</li><li>主題若以訓練生活為本，『真理與啟示』須列舉課程綱要要點及經文。</li><li>請務必填入所選項目於左上分類名稱，例：職事、真理、生命、性格、事奉與心志。</li><li>每人約300~400字（約2~3分鐘）。</li></ol></footer>
       </div></article>
     </div>
-    <p class="help-text">預覽、PDF 與 Word 使用相同 A4 版面；內容較多時會縮小以完整呈現。</p>
+    <p class="help-text">預覽與 PDF 使用固定 A4 版面，內容較多時會縮小。Word 使用可編輯文字與表格，長文會自動延伸至下一頁。</p>
   </section>
 </main>
 </body>

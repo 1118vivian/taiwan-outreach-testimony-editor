@@ -52,8 +52,57 @@
   async function createDocxBlob() {
     if (!window.docx) throw new Error("Word 套件尚未載入，請重新整理後再試。");
     const d = window.docx;
-    const canvas = await captureA4(2);
-    const doc = new d.Document({ title: "台島展見證稿", sections: [{ properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 0, right: 0, bottom: 0, left: 0 } } }, children: [new d.Paragraph({ spacing: { before: 0, after: 0, line: 1 }, children: [new d.ImageRun({ data: canvas.toDataURL("image/png"), transformation: { width: 793, height: 1122 }, floating: { horizontalPosition: { relative: d.HorizontalPositionRelativeFrom.PAGE, offset: 0 }, verticalPosition: { relative: d.VerticalPositionRelativeFrom.PAGE, offset: 0 } }, altText: { title: "台島展見證稿", description: "台島展見證稿編輯器產生的固定 A4 版面", name: "台島展見證稿" } })] })] }] });
+    const data = values();
+    const font = { ascii: "Microsoft JhengHei", hAnsi: "Microsoft JhengHei", eastAsia: "Microsoft JhengHei", cs: "Microsoft JhengHei" };
+    const paragraph = (text, options = {}) => new d.Paragraph({
+      alignment: options.alignment || d.AlignmentType.LEFT,
+      spacing: { before: 0, after: options.after ?? 0, line: options.line || 340 },
+      children: text.split(/\r?\n/).map((line, index) => new d.TextRun({
+        text: line, break: index ? 1 : undefined, font,
+        size: options.size || 26, bold: options.bold || false,
+      })),
+    });
+    const tableWidth = 10706;
+    const labelWidth = 1150;
+    const row = (label, text, height) => new d.TableRow({
+      height: { value: height, rule: d.HeightRule.ATLEAST },
+      children: [
+        new d.TableCell({
+          width: { size: labelWidth, type: d.WidthType.DXA },
+          verticalAlign: d.VerticalAlign.CENTER,
+          children: [paragraph(label, { bold: true, alignment: d.AlignmentType.CENTER, line: 300 })],
+        }),
+        new d.TableCell({
+          width: { size: tableWidth - labelWidth, type: d.WidthType.DXA },
+          verticalAlign: d.VerticalAlign.TOP,
+          children: (text || "").split(/\r?\n/).map(line => paragraph(line)),
+        }),
+      ],
+    });
+    const border = { style: d.BorderStyle.SINGLE, size: 6, color: "C9D1D9" };
+    const doc = new d.Document({
+      title: "台島展見證稿",
+      styles: { default: { document: { run: { font, size: 26, color: "000000" }, paragraph: { spacing: { after: 0 } } } } },
+      sections: [{
+        properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 600, right: 600, bottom: 600, left: 600 } } },
+        children: [
+          paragraph("臺灣福音工作全時間訓練壯年成全班", { bold: true, size: 28, alignment: d.AlignmentType.CENTER, after: 80 }),
+          paragraph("台島展見證稿", { bold: true, size: 38, alignment: d.AlignmentType.CENTER, line: 450, after: 220 }),
+          paragraph(`分類名稱：${data.category}    第 ${data.group} 組    姓名 ${data.name}`, { size: 24, after: 80 }),
+          paragraph(`${dateText(data.startDate)} 至 ${dateText(data.endDate)}`, { size: 24, after: 160 }),
+          new d.Table({
+            width: { size: tableWidth, type: d.WidthType.DXA },
+            columnWidths: [labelWidth, tableWidth - labelWidth],
+            layout: d.TableLayoutType.FIXED,
+            margins: { top: 120, bottom: 120, left: 140, right: 140 },
+            borders: { top: border, bottom: border, left: border, right: border, insideHorizontal: border, insideVertical: border },
+            rows: [row("主題", data.topic, 600), row("真理\n與\n啟示\n30％", data.truth, 2600), row("應用\n與\n經歷\n50％", data.experience, 4500), row("結語\n與\n願望\n20％", data.conclusion, 2350)],
+          }),
+          paragraph("注意事項：", { size: 20, after: 0, line: 280 }),
+          ...Array.from(preview.querySelectorAll(".notes li"), (node, index) => paragraph(`${index + 1}. ${node.textContent}`, { size: 20, line: 280 })),
+        ],
+      }],
+    });
     return d.Packer.toBlob(doc);
   }
 
