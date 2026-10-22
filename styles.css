@@ -341,7 +341,7 @@ select { width: 100%; min-height: 40px; padding: 8px; border: 1px solid #bfccd6;
 .date-line { flex-basis: 100%; }
 .doc-section { grid-template-columns: 86px minmax(0, 1fr); }
 .doc-section h3 { padding: 8px; font-size: 18px; line-height: 1.4; text-align: center; }
-.section-body { min-height: 50px; font-size: 18px; line-height: 1.65; padding: 10px 12px; text-align: center; }
+.section-body { min-height: 50px; font-size: 18px; line-height: 1.65; padding: 10px 12px; text-align: left; }
 .truth-section .section-body { min-height: 190px; }
 .experience-section .section-body { min-height: 340px; }
 .conclusion-section .section-body { min-height: 175px; }
@@ -352,5 +352,7 @@ select { width: 100%; min-height: 40px; padding: 8px; border: 1px solid #bfccd6;
 @media (max-width: 620px) { .actions { position: static; } .preview-toolbar { align-items: flex-start; } .document-page { padding: 36px 44px; } .doc-section { grid-template-columns: 86px minmax(0, 1fr); } .doc-section h3 { font-size: 18px; } }
 
 
-label:has(#topic), label:has(#truth), label:has(#experience), label:has(#conclusion), #topic, #truth, #experience, #conclusion { text-align: center; }
+label:has(#topic), label:has(#truth), label:has(#experience), label:has(#conclusion) { text-align: center; }
+#topic, #truth, #experience, #conclusion { text-align: left; }
+
 
